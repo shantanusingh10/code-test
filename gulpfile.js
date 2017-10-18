@@ -296,13 +296,18 @@ gulp.task('clean:manifest', del.bind(null, [
 //////////////////////////////////////////////////////////////////////
 
 //// Build files for creating a dist release for production
-gulp.task('build:dist', ['clean'], function(cb) {
+gulp.task('build:dist', function(cb) {
   runSequence(['build', 'copy', 'copy:assets', 'images'], ['html'], ['revision'], ['revisionReplace'], 'favicon', 'clean:dist', 'inject:dist', 'critical', 'clean:partials', 'clean:manifest', cb);
 });
 
 //// Build files for local development
 gulp.task('build', ['clean'], function(cb) {
   runSequence(['sass:dist', 'copy:dev'], cb);
+});
+
+/// Build files for production
+gulp.task('builddist', function(cb) {
+  runSequence(['sass:dist'], cb);
 });
 
 
